@@ -24,12 +24,18 @@ def main():
     simp_hom(big_to_small([[0,4,5], [0,1,5], [1,3,5], [0,3,4], [0,2,3], [0,1,2], [1,2,4], [1,3,4], [2,4,5], [2,3,5]]))
     print()
 
-    print("S^1:")
-    simp_hom(big_to_small([[0,1],[1,2],[2,0]]))
-    print()
-    
     print("Klein bottle:")
     simp_hom(big_to_small([[0,1,6],[1,6,7],[1,2,7],[2,7,8],[0,2,8],[0,3,8],[3,6,7],[3,4,7],[4,7,8],[4,5,8],[3,5,8],[3,5,6],[0,3,4],[0,1,4],[1,4,5],[1,2,5],[2,5,6],[0,2,6]]))
+    print()
+
+    for i in range(1,5):
+        print('S^'+str(i-1) +str(':'))
+        gs = []
+        l = list(range(i+1))
+        for j in range(i+1):
+            gs.append(l[:j] + l[j+1:])
+        simp_hom(big_to_small(gs))
+        print()
 
 
 def get_nontrivial_elementary_divisors(mat):
@@ -47,7 +53,7 @@ def get_nontrivial_elementary_divisors(mat):
             snfmat.computeSNF()
             break
         except:
-            time.sleep(0.2)
+            time.sleep(0.1)
             continue
     elem_divisiors = []
     r = 0
