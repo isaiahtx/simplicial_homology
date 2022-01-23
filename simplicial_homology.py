@@ -2,34 +2,6 @@ import json
 from smithnormalform import matrix, snfproblem, z
 import time
 
-class up_tree:
-    def __init__(self,size):
-        self.size = size
-        self.nodes = [-1] * size
-
-    def find(self,x):
-        if self.nodes[x] < 0: return x
-        if self.nodes[self.nodes[x]] < 0: return self.nodes[x]
-        self.nodes[x] = self.find(self.nodes[x])
-        return self.nodes[x]
-
-    def union(self,x,y):
-        sentinel_x = self.find(x)
-        sentinel_y = self.find(y)
-        if sentinel_x == sentinel_y: return
-        if self.nodes[sentinel_y] <= self.nodes[sentinel_x]:
-            self.nodes[sentinel_y] += self.nodes[sentinel_x]
-            self.nodes[sentinel_x] = sentinel_y
-        else:
-            self.nodes[sentinel_x] += self.nodes[sentinel_y]
-            self.nodes[sentinel_y] = sentinel_x
-    
-    def components(self):
-        roots = set({})
-        for i in range(self.size):
-            roots.add(self.find(i))
-        return len(roots)
-
 def big_to_small(fset):
     while True:
         additions_made = False
